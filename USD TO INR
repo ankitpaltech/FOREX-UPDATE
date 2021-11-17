@@ -1,0 +1,41 @@
+import tkinter as tk
+
+import requests
+import datetime
+from tkinter import font
+from requests import api
+def getdata():
+ 
+ api = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=INR&apikey=51FVV10PUS4OH6WS'
+ r = requests.get(api).json()
+ exchange1 = r["Realtime Currency Exchange Rate"]["1. From_Currency Code"]
+ exchange2 = r["Realtime Currency Exchange Rate"]["2. From_Currency Name"]
+ exchange3 = r["Realtime Currency Exchange Rate"]["3. To_Currency Code"]
+ exchange4 = r["Realtime Currency Exchange Rate"]["4. To_Currency Name"]
+ exchange5 = r["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
+ exchange6 = r["Realtime Currency Exchange Rate"]["6. Last Refreshed"]
+
+ 
+ label.config(text= "from currency code :\n" + exchange1 
+ + "\nfrom Currency Name : \n" +exchange2
+ + "\nto Currency Name : \n" +exchange3
+ + "\nto Currency code : \n" +exchange4
+ + "\nexchange rate : \n" + exchange5
+ + "\n last refreshed : \n " + exchange6
+  )
+
+  
+canvas = tk.Tk()
+canvas.geometry("800x800")
+canvas.title("TRADOLOGY")
+
+f = ("poppins", 15 , "bold")
+button = tk.Button(canvas, font = f,text = "load", command=getdata)
+button.pack(pady = 20)
+label = tk.Label(canvas, font = f)
+label.pack(pady = 20)
+
+
+getdata()
+
+canvas.mainloop()
